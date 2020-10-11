@@ -1,8 +1,10 @@
 name: First Pod
 
-on:
-  push:
-    branches: [ master ]
+on: 
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: 'Deploy my first pod'  
 
 env:
   REGISTRY_HOSTNAME: freddycontainers.azurecr.io
