@@ -1,16 +1,12 @@
-# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
-# For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
-
-name: Node.js Package
+name: First Pod
 
 on:
-  release:
-    types: [created]
+  push:
+    branches: [ master ]
 
 env:
   REGISTRY_HOSTNAME: freddycontainers.azurecr.io
   IMAGE_NAME: firstpod
-  DEPLOYMENT_NAME: firstpod
 
 jobs:
   build:
@@ -55,4 +51,5 @@ jobs:
       - name: Kubectl apply
         run: |
           kubectl config current-context
-          kubectl apply -f ./FirstPod/my-first-pod.yaml
+          kubectl create -f ./FirstPod/my-first-pod.yaml
+          kubectl get pods
