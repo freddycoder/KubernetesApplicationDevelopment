@@ -12,11 +12,22 @@ spec:
         # After five seconds, check for a
         # 200 response on localhost:8000/
         # and check only once before thinking we've failed.
-       initialDelaySeconds: 5
-       failureThreshold: 1
+       initialDelaySeconds: 30
+       failureThreshold: 4
        httpGet:
          path: /
          port: 8000
+
+      # Check that a container is still alive and running
+      livenessProbe:
+        # After sixty seconds, start checking
+        # periodically wheter we have an index.html file.
+        # Wait five seconds before repeating the check.
+        # This file never exists si the container restarts.
+        initialDelaySeconds: 60
+        periodSeconds: 5
+        exec:
+          command: ["ls", "index.html"]
 
       # This container starts a simple web
       # server after 45 seconds.
